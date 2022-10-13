@@ -39,7 +39,7 @@ class ProductItem extends StatelessWidget {
         trailing: IconButton(
             onPressed: () {
               cartClicked();
-              Scaffold.of(context).hideCurrentSnackBar();
+              /*Scaffold.of(context).hideCurrentSnackBar();
               Scaffold.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Colors.purpleAccent.shade400,
@@ -54,7 +54,7 @@ class ProductItem extends StatelessWidget {
                         cartController.removeSingleItem(product.id);
                       }),
                 ),
-              );
+              );*/
             },
             color: Theme.of(context).accentColor,
             icon: Icon(Icons.shopping_cart)),

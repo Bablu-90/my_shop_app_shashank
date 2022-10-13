@@ -18,7 +18,7 @@ class CartItem {
       id: json['id'],
       title: json['title'],
       quantity: json['quantity'],
-      price: double.parse(json['price']),
+      price: double.parse(json['price'].toString()),
     );
   }
 

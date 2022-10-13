@@ -6,8 +6,6 @@ import 'package:my_shop_app/Getx/orders.dart';
 import 'package:my_shop_app/screens/widgets/app_drawer.dart';
 import 'package:my_shop_app/screens/widgets/order_item.dart';
 
-import '../Getx/orders.dart';
-
 class OrderScreen extends StatefulWidget {
   OrderScreen({Key? key}) : super(key: key);
 
@@ -19,7 +17,7 @@ class _OrderScreenState extends State<OrderScreen> {
   @override
   void initState() {
     Future.delayed(Duration.zero).then((_) {
-      OrdersController ordersController = Get.find();
+      OrdersController ordersController = Get.put(OrdersController());
       ordersController.fetchAndSetOrders();
     });
     super.initState();
@@ -27,6 +25,7 @@ class _OrderScreenState extends State<OrderScreen> {
 
   final DatabaseReference ref =
       FirebaseDatabase.instance.ref().child('OrderItem');
+
   @override
   Widget build(BuildContext context) {
     OrdersController orderController = Get.find();
@@ -36,13 +35,10 @@ class _OrderScreenState extends State<OrderScreen> {
       ),
       drawer: AppDrawerWidget(),
       body: Obx(() {
-        print(
-            "Orders Length: ${orderController.orderItem.value.products.length}");
-
         return ListView.builder(
-          itemCount: orderController.orderItem.value.products.length,
+          itemCount: orderController.orderList.length,
           itemBuilder: (ctx, i) =>
-              OrderItemWidget(orderController.orderItem.value),
+              OrderItemWidget(orderController.orderList[i]),
         );
       }),
       backgroundColor: Colors.purple.shade200,

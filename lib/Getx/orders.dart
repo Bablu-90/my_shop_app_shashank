@@ -22,12 +22,13 @@ class OrderItem {
   factory OrderItem.fromJson(Map<String, dynamic> json) {
     return OrderItem(
         id: json['id'],
-        amount: json['amount'],
+        amount: double.parse(json['amount'].toString()),
         products: (json['products'] as List<dynamic>)
             .map((e) => CartItem.fromJson(e))
             .toList(),
         dateTime: DateTime.parse(json['dateTime']));
   }
+
 //to JSON
   Map<String, dynamic> toJson() {
     return {
@@ -40,12 +41,7 @@ class OrderItem {
 }
 
 class OrdersController extends GetxController {
-  Rx<OrderItem> orderItem = OrderItem(
-          id: DateTime.now().millisecondsSinceEpoch.toString(),
-          amount: 3,
-          products: [],
-          dateTime: DateTime.now())
-      .obs;
+  RxList<OrderItem> orderList = RxList<OrderItem>([]);
 
   Future<void> fetchAndSetOrders() async {
     await FirebaseDatabase.instance
@@ -59,11 +55,7 @@ class OrdersController extends GetxController {
       event.snapshot.children.forEach((element) {
         OrderItem orderItem =
             OrderItem.fromJson(jsonDecode(jsonEncode(element.value)));
-        orderItem.products.add(CartItem(
-            id: orderItem.id,
-            title: orderItem.title,
-            quantity: orderItem.quantity,
-            price: orderItem.price));
+        orderList.add(orderItem);
       });
     });
   }
@@ -75,19 +67,22 @@ class OrdersController extends GetxController {
   }
 
   Future<void> addOrder(List<CartItem> cartProducts, double total) async {
+    String orderId = DateTime.now().millisecondsSinceEpoch.toString();
     await FirebaseDatabase.instance
         .ref()
         .child('OrderItem')
-        .child(DateTime.now().millisecondsSinceEpoch.toString())
-        .set(orderItem.value.toJson())
+        .child(orderId)
+        .set(OrderItem(
+                id: orderId,
+                amount: cartProducts.isNotEmpty
+                    ? cartProducts
+                        .map((e) => e.price)
+                        .toList()
+                        .reduce((value, element) => value + element)
+                    : 0,
+                products: cartProducts,
+                dateTime: DateTime.now())
+            .toJson())
         .then((value) => {});
-    orderItem.value = OrderItem(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
-        amount: total,
-        products: cartProducts,
-        dateTime: DateTime.now());
-    /*ProductsGetController productsGetController =
-        Get.put(ProductsGetController());
-    productsGetController.shoppingCartItems.clear();*/
   }
 }
