@@ -78,17 +78,13 @@ class ProductsGetController extends GetxController {
   }
 
   Future<void> fetchAndSetProducts() async {
-    await FirebaseDatabase.instance
-        .ref()
-        .child('Product')
-        .onValue
-        .listen((event) {
+    FirebaseDatabase.instance.ref().child('Product').onValue.listen((event) {
       items.clear();
-      event.snapshot.children.forEach((element) {
+      for (var element in event.snapshot.children) {
         Product newProduct =
             Product.fromJson(jsonDecode(jsonEncode(element.value)));
         items.add(newProduct);
-      });
+      }
     });
   }
 

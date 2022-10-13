@@ -9,17 +9,18 @@ class ProductGrid extends StatelessWidget {
       Get.put(ProductsGetController());
 
   final cartController = Get.put(CartController());
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
       return GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             childAspectRatio: 3 / 2,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
           ),
-          padding: EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(10.0),
           itemCount: productsGetController.items.length,
           itemBuilder: (ctx, i) {
             return Obx(() {

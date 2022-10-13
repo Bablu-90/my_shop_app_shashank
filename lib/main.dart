@@ -20,9 +20,9 @@ class MyApp extends StatelessWidget {
       title: 'My Shop',
       color: Colors.black87,
       theme: ThemeData(
-        primarySwatch: Colors.purple,
-        accentColor: Colors.deepOrange.shade100,
         fontFamily: 'Lat',
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
+            .copyWith(secondary: Colors.deepOrange.shade100),
       ),
       home: SplashScreen(),
     );

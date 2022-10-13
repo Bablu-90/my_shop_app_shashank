@@ -6,6 +6,7 @@ class AnimatedScreenWidget extends StatefulWidget {
   final Widget child;
 
   const AnimatedScreenWidget({super.key, required this.child});
+
   @override
   State<AnimatedScreenWidget> createState() => _AnimatedScreenWidgetState();
 }
@@ -13,11 +14,12 @@ class AnimatedScreenWidget extends StatefulWidget {
 class _AnimatedScreenWidgetState extends State<AnimatedScreenWidget>
     with TickerProviderStateMixin {
   late AnimationController _controller;
+
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: Duration(seconds: 4),
+      duration: const Duration(seconds: 4),
       vsync: this,
     )..repeat();
   }
@@ -48,15 +50,15 @@ class _AnimatedScreenWidgetState extends State<AnimatedScreenWidget>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage('assets/images/shopping2.jpg'),
                       ),
                       shape: BoxShape.rectangle,
                     ),
                   ),
-                  SizedBox(height: 64),
-                  Spacer(),
+                  const SizedBox(height: 64),
+                  const Spacer(),
                 ],
               ),
             );

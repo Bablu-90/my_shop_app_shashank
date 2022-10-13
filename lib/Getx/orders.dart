@@ -44,19 +44,15 @@ class OrdersController extends GetxController {
   RxList<OrderItem> orderList = RxList<OrderItem>([]);
 
   Future<void> fetchAndSetOrders() async {
-    await FirebaseDatabase.instance
-        .ref()
-        .child('OrderItem')
-        .onValue
-        .listen((event) {
+    FirebaseDatabase.instance.ref().child('OrderItem').onValue.listen((event) {
       ProductsGetController productsGetController =
           Get.put(ProductsGetController());
       productsGetController.shoppingCartItems.clear();
-      event.snapshot.children.forEach((element) {
+      for (var element in event.snapshot.children) {
         OrderItem orderItem =
             OrderItem.fromJson(jsonDecode(jsonEncode(element.value)));
         orderList.add(orderItem);
-      });
+      }
     });
   }
 

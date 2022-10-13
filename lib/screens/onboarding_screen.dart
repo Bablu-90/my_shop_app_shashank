@@ -47,14 +47,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         body: 'See the increase in productivity & output',
         doAnimateImage: true),
     PageModel(
-        color: Color(0xFF9B90BC),
+        color: const Color(0xFF9B90BC),
         imageAssetPath: 'assets/images/shopping 2.jpg',
         title: 'Shop Screen ',
         body: 'Connect with the people from different places',
         doAnimateImage: true),
     PageModel.withChild(
         child: Padding(
-          padding: EdgeInsets.only(bottom: 25.0),
+          padding: const EdgeInsets.only(bottom: 25.0),
           child: Image.asset('assets/images/ecommerce.jpg',
               width: 300.0, height: 300.0),
         ),

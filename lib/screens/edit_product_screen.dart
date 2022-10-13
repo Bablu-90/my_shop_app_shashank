@@ -1,13 +1,13 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:my_shop_app/Getx/products_getx.dart';
 import 'package:my_shop_app/models/product.dart';
 
 class EditProductScreen extends StatefulWidget {
   final String? id;
-  EditProductScreen({Key? key, this.id}) : super(key: key);
+
+  const EditProductScreen({Key? key, this.id}) : super(key: key);
 
   @override
   State<EditProductScreen> createState() => _EditProductScreenState();
@@ -28,17 +28,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
       imageUrl: '',
       isFavourite: false);
   var _isinit = true;
-  RxBool _isLoading = false.obs;
-  var _initValues = {
+  final RxBool _isLoading = false.obs;
+  final _initValues = {
     'id': '',
     'title': '',
     'description': '',
     'price': '',
   };
 
-  TextEditingController _titleController = TextEditingController();
-  TextEditingController _priceController = TextEditingController();
-  TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _priceController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
 
   @override
   void initState() {
@@ -120,7 +120,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
           imageUrl: _imageUrlController.text,
           isFavourite: false);
       productsGetController.addProduct(newProduct).then((_) {
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(const Duration(seconds: 2), () {
           _isLoading.value = false;
           Navigator.of(context).pop();
         });
@@ -132,13 +132,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Product'),
+        title: const Text('Edit Product'),
         actions: <Widget>[
           IconButton(
               onPressed: () {
                 _saveForm();
               },
-              icon: Icon(Icons.save)),
+              icon: const Icon(Icons.save)),
         ],
       ),
       body: Obx(() {
@@ -248,7 +248,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           Container(
                             width: 100,
                             height: 100,
-                            margin: EdgeInsets.only(top: 8, right: 10),
+                            margin: const EdgeInsets.only(top: 8, right: 10),
                             decoration: BoxDecoration(
                               border: Border.all(
                                 style: BorderStyle.solid,
@@ -257,7 +257,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               ),
                             ),
                             child: _imageUrlController.text.isEmpty
-                                ? Text('Enter a URL')
+                                ? const Text('Enter a URL')
                                 : FittedBox(
                                     child: Image.network(
                                       _imageUrlController.text,
@@ -268,7 +268,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           Expanded(
                             child: TextFormField(
                               decoration:
-                                  InputDecoration(labelText: 'Image URL'),
+                                  const InputDecoration(labelText: 'Image URL'),
                               keyboardType: TextInputType.url,
                               textInputAction: TextInputAction.done,
                               controller: _imageUrlController,

@@ -1,7 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:my_shop_app/Getx/products_getx.dart';
 import 'package:my_shop_app/screens/edit_product_screen.dart';
 
@@ -9,7 +8,8 @@ import '../../models/product.dart';
 
 class UserProductItem extends StatelessWidget {
   final Product product;
-  UserProductItem({required this.product});
+
+  const UserProductItem({required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class UserProductItem extends StatelessWidget {
             return AlertDialog(
               backgroundColor: Colors.deepPurple.shade200,
               title: Text('Delete ${product.id}'),
-              content: Text(
+              content: const Text(
                 'Are you sure you want to delete?',
                 style: TextStyle(
                     fontWeight: FontWeight.w700,
@@ -32,7 +32,7 @@ class UserProductItem extends StatelessWidget {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text('Cancel',
+                    child: const Text('Cancel',
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 20,
@@ -50,7 +50,7 @@ class UserProductItem extends StatelessWidget {
                         Navigator.pop(context);
                       });
                     },
-                    child: Text(
+                    child: const Text(
                       'Delete',
                       style: TextStyle(
                           color: Colors.black,
@@ -67,7 +67,7 @@ class UserProductItem extends StatelessWidget {
       leading: CircleAvatar(
         backgroundImage: NetworkImage(product.imageUrl),
       ),
-      trailing: Container(
+      trailing: SizedBox(
         width: 100,
         child: Row(
           children: <Widget>[
@@ -78,14 +78,14 @@ class UserProductItem extends StatelessWidget {
                     ));
               },
               color: Theme.of(context).primaryColor,
-              icon: Icon(Icons.edit, color: Colors.black),
+              icon: const Icon(Icons.edit, color: Colors.black),
             ),
             IconButton(
               onPressed: () {
                 _showDeleteDialog(product: product, id: product.id);
               },
               color: Theme.of(context).errorColor,
-              icon: Icon(Icons.delete),
+              icon: const Icon(Icons.delete),
             ),
           ],
         ),

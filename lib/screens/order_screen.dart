@@ -1,13 +1,12 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:my_shop_app/Getx/orders.dart';
 import 'package:my_shop_app/screens/widgets/app_drawer.dart';
 import 'package:my_shop_app/screens/widgets/order_item.dart';
 
 class OrderScreen extends StatefulWidget {
-  OrderScreen({Key? key}) : super(key: key);
+  const OrderScreen({Key? key}) : super(key: key);
 
   @override
   State<OrderScreen> createState() => _OrderScreenState();
@@ -31,9 +30,9 @@ class _OrderScreenState extends State<OrderScreen> {
     OrdersController orderController = Get.find();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Your Orders'),
+        title: const Text('Your Orders'),
       ),
-      drawer: AppDrawerWidget(),
+      drawer: const AppDrawerWidget(),
       body: Obx(() {
         return ListView.builder(
           itemCount: orderController.orderList.length,

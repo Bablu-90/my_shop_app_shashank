@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:my_shop_app/screens/order_screen.dart';
 import 'package:my_shop_app/screens/products_overview_screen.dart';
 import 'package:my_shop_app/screens/user_products_screen.dart';
@@ -16,31 +15,31 @@ class AppDrawerWidget extends StatelessWidget {
       child: Column(
         children: <Widget>[
           AppBar(
-            title: Text('Hello Friend!'),
+            title: const Text('Hello Friend!'),
             automaticallyImplyLeading: false,
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            leading: Icon(Icons.shop),
-            title: Text('Shop'),
+            leading: const Icon(Icons.shop),
+            title: const Text('Shop'),
             onTap: () {
               Get.to(ProductsOverviewScreen());
             },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            leading: Icon(Icons.payment),
-            title: Text('Orders'),
+            leading: const Icon(Icons.payment),
+            title: const Text('Orders'),
             onTap: () {
-              Get.to(() => OrderScreen());
+              Get.to(() => const OrderScreen());
             },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            leading: Icon(Icons.edit_sharp),
-            title: Text('Manage Products'),
+            leading: const Icon(Icons.edit_sharp),
+            title: const Text('Manage Products'),
             onTap: () {
-              Get.to(() => UserProductsScreen());
+              Get.to(() => const UserProductsScreen());
             },
           )
         ],

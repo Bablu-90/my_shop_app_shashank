@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_shop_app/Getx/cart.dart';
 import 'package:my_shop_app/screens/product_detail_screen.dart';
 
 import '../../models/product.dart';
@@ -30,7 +29,7 @@ class ProductItem extends StatelessWidget {
           icon: Icon(product.isFavourite
               ? Icons.favorite
               : Icons.favorite_border_outlined),
-          color: Theme.of(context).accentColor,
+          color: Theme.of(context).colorScheme.secondary,
         ),
         title: Text(
           product.title,
@@ -56,8 +55,8 @@ class ProductItem extends StatelessWidget {
                 ),
               );*/
             },
-            color: Theme.of(context).accentColor,
-            icon: Icon(Icons.shopping_cart)),
+            color: Theme.of(context).colorScheme.secondary,
+            icon: const Icon(Icons.shopping_cart)),
       ),
       child: GestureDetector(
         onTap: () {

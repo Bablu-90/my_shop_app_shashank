@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:my_shop_app/Getx/cart.dart';
 import 'package:my_shop_app/Getx/orders.dart';
 import 'package:my_shop_app/Getx/products_getx.dart';
@@ -19,29 +18,29 @@ class _CartScreenState extends State<CartScreen> {
     OrdersController orderController = Get.find();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Your Cart'),
+        title: const Text('Your Cart'),
       ),
       body: Column(
         children: <Widget>[
           Card(
-            margin: EdgeInsets.all(15),
+            margin: const EdgeInsets.all(15),
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
+                  const Text(
                     'Total',
                     style: TextStyle(fontSize: 20),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Chip(
                     label: Obx(() {
                       return Text(
                         productsGetController.shoppingCartItems.isNotEmpty
                             ? '\$${productsGetController.shoppingCartItems.map((element) => element.price).toList().reduce((value, element) => value + element).toStringAsFixed(2)}'
                             : '0.0',
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       );
                     }),
                     backgroundColor: Theme.of(context).primaryColor,
@@ -68,13 +67,13 @@ class _CartScreenState extends State<CartScreen> {
                         snackPosition: SnackPosition.BOTTOM,
                       );
                     },
-                    child: Text('ORDER NOW'),
+                    child: const Text('ORDER NOW'),
                   )
                 ],
               ),
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Expanded(child: Obx(() {
             return ListView.builder(
               itemCount: productsGetController.shoppingCartItems.length,

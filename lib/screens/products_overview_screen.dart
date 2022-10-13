@@ -21,7 +21,7 @@ class ProductsOverviewScreen extends StatefulWidget {
 
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   var _isInit = true;
-  RxBool _isLoading = false.obs;
+  final RxBool _isLoading = false.obs;
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
       _isLoading.value = true;
       ProductsGetController productsGetController = Get.find();
       productsGetController.fetchAndSetProducts().then((_) {
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(const Duration(seconds: 2), () {
           _isLoading.value = false;
         });
       });
@@ -47,11 +47,12 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
       Get.put(ProductsGetController());
   final CartController cartController = Get.put(CartController());
   OrdersController orderController = Get.put(OrdersController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('MyShop'),
+        title: const Text('MyShop'),
         actions: <Widget>[
           PopupMenuButton(
             onSelected: (FilterOptions selectedValue) {
@@ -62,36 +63,36 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
               }
               print(selectedValue);
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.more_vert_sharp,
             ),
             itemBuilder: (_) => [
-              PopupMenuItem(
-                  child: Text('Only Favorites'),
-                  value: FilterOptions.Favorites),
-              PopupMenuItem(
-                child: Text('Show All'),
+              const PopupMenuItem(
+                  value: FilterOptions.Favorites,
+                  child: Text('Only Favorites')),
+              const PopupMenuItem(
                 value: FilterOptions.All,
+                child: Text('Show All'),
               ),
             ],
           ),
           Obx(() {
             return Badge(
+                value:
+                    productsGetController.shoppingCartItems.length.toString(),
+                color: Colors.deepOrangeAccent.shade200,
                 child: IconButton(
                     onPressed: () {
                       Get.to(() => CartScreen());
                     },
-                    icon: Icon(Icons.shopping_cart)),
-                value:
-                    productsGetController.shoppingCartItems.length.toString(),
-                color: Colors.deepOrangeAccent.shade200);
+                    icon: const Icon(Icons.shopping_cart)));
           })
         ],
       ),
-      drawer: AppDrawerWidget(),
+      drawer: const AppDrawerWidget(),
       body: Obx(() {
         return _isLoading.value
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(
                     color: Colors.black87, backgroundColor: Colors.deepPurple),
               )

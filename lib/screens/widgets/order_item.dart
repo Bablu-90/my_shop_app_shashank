@@ -7,7 +7,8 @@ import '../../Getx/orders.dart';
 
 class OrderItemWidget extends StatefulWidget {
   final OrderItem order;
-  OrderItemWidget(this.order);
+
+  const OrderItemWidget(this.order);
 
   @override
   State<OrderItemWidget> createState() => _OrderItemWidgetState();
@@ -15,10 +16,11 @@ class OrderItemWidget extends StatefulWidget {
 
 class _OrderItemWidgetState extends State<OrderItemWidget> {
   var _expanded = false;
+
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       child: Column(
         children: <Widget>[
           ListTile(
@@ -38,7 +40,7 @@ class _OrderItemWidgetState extends State<OrderItemWidget> {
           ),
           if (_expanded)
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
               height: min(widget.order.products.length * 20.0 + 10, 100),
               child: ListView(
                   children: widget.order.products
@@ -48,14 +50,14 @@ class _OrderItemWidgetState extends State<OrderItemWidget> {
                           children: <Widget>[
                             Text(
                               product.title,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
                               ),
                             ),
                             Text(
                               '${product.quantity}x \$${product.price}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 18,
                                 color: Colors.grey,
                               ),

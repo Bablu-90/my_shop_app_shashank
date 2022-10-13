@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_shop_app/Getx/products_getx.dart';
 
-import '../Getx/products_getx.dart';
 import '../models/product.dart';
 
 class ProductDetailScreen extends StatelessWidget {
@@ -27,7 +26,7 @@ class ProductDetailScreen extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Container(
-              color: Color(0xffF6F6F6),
+              color: const Color(0xffF6F6F6),
               height: 300,
               width: double.infinity,
               child: CachedNetworkImage(
@@ -35,28 +34,28 @@ class ProductDetailScreen extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
               '\$${product.price}',
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 22,
                 fontWeight: FontWeight.w700,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               width: double.infinity,
               child: Text(
                 product.description,
                 textAlign: TextAlign.center,
                 softWrap: true,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color(0xff405D52),
                   fontSize: 16,
                 ),

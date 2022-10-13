@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:my_shop_app/screens/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 3))
+    Future.delayed(const Duration(seconds: 3))
         .then((_) => {Get.to(() => OnBoardingScreen())});
   }
 
@@ -27,26 +26,26 @@ class _SplashScreenState extends State<SplashScreen>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Spacer(),
+            const Spacer(),
             Container(
               width: 200,
               height: 200,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage('assets/images/ecommerce.jpg')),
                 shape: BoxShape.circle,
               ),
             ),
-            SizedBox(height: 64),
-            Spacer(),
-            Text(
+            const SizedBox(height: 64),
+            const Spacer(),
+            const Text(
               'My Shop',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Spacer(),
+            const Spacer(),
           ],
         ),
       ),
