@@ -7,8 +7,6 @@ import 'package:my_shop_app/screens/widgets/auth_card.dart';
 import 'package:my_shop_app/screens/widgets/auth_controller.dart';
 
 class AuthScreen extends StatelessWidget {
-  static const routename = '/auth';
-
   @override
   Widget build(BuildContext context) {
     AuthScreenController authScreenController = Get.put(AuthScreenController());
@@ -64,7 +62,7 @@ class AuthScreen extends StatelessWidget {
                               .accentTextTheme
                               .titleMedium!
                               .color,
-                          fontSize: 50,
+                          fontSize: 45,
                           fontFamily: 'Anton',
                           fontWeight: FontWeight.normal,
                         ),

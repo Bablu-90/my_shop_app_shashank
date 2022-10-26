@@ -11,6 +11,7 @@ class ProductsGetController extends GetxController {
   RxList<Product> shoppingCartItems = <Product>[].obs;
   RxBool showOnlyFavorites = false.obs;
   RxString title = 'Product Description'.obs;
+  RxString userId = 'User Id'.obs;
 
   Product? findById(String Id) {
     return items[items.indexWhere((prod) => prod.id == Id)];
@@ -65,8 +66,8 @@ class ProductsGetController extends GetxController {
     items.removeWhere((prod) => prod.id == id);
   }
 
-  void toggleFavorite(int index) {
-    items.replaceRange(index, index + 1, [
+  void toggleFavorite(int index, String userId) async {
+    /*items.replaceRange(index, index + 1, [
       Product(
           id: items[index].id,
           title: items[index].title,
@@ -74,16 +75,33 @@ class ProductsGetController extends GetxController {
           price: items[index].price,
           imageUrl: items[index].imageUrl,
           isFavourite: !items[index].isFavourite)
-    ]);
+    ]);*/
+    Product newProduct =
+        items[index].copyWith(isFavourite: !items[index].isFavourite);
+    await FirebaseDatabase.instance
+        .ref()
+        .child("Product")
+        .child(newProduct.id)
+        .update(newProduct.toJson());
   }
 
   Future<void> fetchAndSetProducts() async {
-    FirebaseDatabase.instance.ref().child('Product').onValue.listen((event) {
+    await FirebaseDatabase.instance
+        .ref()
+        .child('Product')
+        .onValue
+        .listen((event) {
       items.clear();
       for (var element in event.snapshot.children) {
         Product newProduct =
             Product.fromJson(jsonDecode(jsonEncode(element.value)));
         items.add(newProduct);
+        ProductsGetController productsGetController = Get.find();
+        productsGetController.showOnlyFavorites.value = FirebaseDatabase
+            .instance
+            .ref()
+            .child('Product')
+            .update(productsGetController.showOnlyFavorites.value);
       }
     });
   }

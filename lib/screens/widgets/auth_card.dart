@@ -15,6 +15,7 @@ class _AuthCardState extends State<AuthCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.blueGrey.shade200,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
@@ -32,10 +33,11 @@ class _AuthCardState extends State<AuthCard> {
             child: Column(
               children: <Widget>[
                 TextFormField(
+                  controller: authScreenController.signUpEmailController,
                   decoration: InputDecoration(labelText: 'E-Mail'),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
-                    if (value!.isEmpty || value.contains('@')) {
+                    if (value!.isEmpty || !value.contains('@')) {
                       return 'Invalid email!';
                     }
                   },
@@ -46,7 +48,7 @@ class _AuthCardState extends State<AuthCard> {
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Password'),
                   obscureText: true,
-                  controller: authScreenController.passwordController,
+                  controller: authScreenController.signUpPasswordController,
                   validator: (value) {
                     if (value!.isEmpty || value.length < 5) {
                       return 'Password is too short!';
@@ -59,13 +61,16 @@ class _AuthCardState extends State<AuthCard> {
                 ),
                 if (authScreenController.authMode == AuthMode.Signup)
                   TextFormField(
+                    controller:
+                        authScreenController.signUpConfirmPasswordController,
                     enabled: authScreenController.authMode == AuthMode.Signup,
                     decoration: InputDecoration(labelText: 'Confirm Password'),
                     obscureText: true,
                     validator: authScreenController.authMode == AuthMode.Signup
                         ? (value) {
                             if (value !=
-                                authScreenController.passwordController.text) {
+                                authScreenController
+                                    .signUpPasswordController.text) {
                               return 'Passwords do not match!';
                             }
                           }
@@ -78,7 +83,8 @@ class _AuthCardState extends State<AuthCard> {
                   CircularProgressIndicator()
                 else
                   ElevatedButton(
-                    style: ButtonStyle(),
+                    style: ButtonStyle(
+                        fixedSize: MaterialStateProperty.all(Size(100, 30))),
                     onPressed: () {
                       authScreenController.submit();
                     },
@@ -86,6 +92,20 @@ class _AuthCardState extends State<AuthCard> {
                         ? 'Login'
                         : 'Sign Up'),
                   ),
+                ElevatedButton(
+                  style: ButtonStyle(
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)))),
+                  child: Text(
+                      '${authScreenController.authMode == AuthMode.Login ? 'SignUp' : 'LOGIN'}INSTEAD'),
+                  onPressed: authScreenController.switchAuthMode,
+                ),
+                FloatingActionButton(
+                    onPressed: () {
+                      authScreenController.logout();
+                    },
+                    child:
+                        Text('LogOut', style: TextStyle(color: Colors.black)))
               ],
             ),
           ),
