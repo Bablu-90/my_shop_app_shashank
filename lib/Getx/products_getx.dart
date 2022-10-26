@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 import 'package:my_shop_app/models/product.dart';
@@ -10,8 +11,8 @@ class ProductsGetController extends GetxController {
   // RxBool _showFavoritesOnly = false.obs;
   RxList<Product> shoppingCartItems = <Product>[].obs;
   RxBool showOnlyFavorites = false.obs;
-  RxString title = 'Product Description'.obs;
-  RxString userId = 'User Id'.obs;
+  RxString title = ''.obs;
+  RxString userId = ''.obs;
 
   Product? findById(String Id) {
     return items[items.indexWhere((prod) => prod.id == Id)];
@@ -66,7 +67,7 @@ class ProductsGetController extends GetxController {
     items.removeWhere((prod) => prod.id == id);
   }
 
-  void toggleFavorite(int index, String userId) async {
+  void toggleFavorite(int index) async {
     /*items.replaceRange(index, index + 1, [
       Product(
           id: items[index].id,
@@ -78,11 +79,13 @@ class ProductsGetController extends GetxController {
     ]);*/
     Product newProduct =
         items[index].copyWith(isFavourite: !items[index].isFavourite);
-    await FirebaseDatabase.instance
+    items.replaceRange(index, index + 1, [newProduct]);
+    FirebaseDatabase.instance
         .ref()
-        .child("Product")
-        .child(newProduct.id)
-        .update(newProduct.toJson());
+        .child('Users')
+        .child(FirebaseAuth.instance.currentUser!.uid)
+        .child(items[index].id)
+        .set({items[index].id: newProduct.isFavourite});
   }
 
   Future<void> fetchAndSetProducts() async {
@@ -97,11 +100,6 @@ class ProductsGetController extends GetxController {
             Product.fromJson(jsonDecode(jsonEncode(element.value)));
         items.add(newProduct);
         ProductsGetController productsGetController = Get.find();
-        productsGetController.showOnlyFavorites.value = FirebaseDatabase
-            .instance
-            .ref()
-            .child('Product')
-            .update(productsGetController.showOnlyFavorites.value);
       }
     });
   }

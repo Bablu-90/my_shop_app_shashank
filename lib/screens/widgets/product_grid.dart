@@ -21,30 +21,34 @@ class ProductGrid extends StatelessWidget {
             mainAxisSpacing: 10,
           ),
           padding: const EdgeInsets.all(10.0),
-          itemCount: productsGetController.items.length,
+          itemCount: productsGetController.showOnlyFavorites.value
+              ? productsGetController.items
+                  .map((element) => element.isFavourite ? 1 : 0)
+                  .toList()
+                  .reduce((value, element) => value + element)
+              : productsGetController.items.length,
           itemBuilder: (ctx, i) {
             return Obx(() {
-              return Visibility(
-                visible: (productsGetController.showOnlyFavorites.value &&
-                        productsGetController.items[i].isFavourite) ||
-                    !productsGetController.showOnlyFavorites.value,
-                child: ProductItem(
-                  product: productsGetController.items[i],
-                  favoriteClicked: () {
-                    productsGetController.toggleFavorite(i);
-                  },
-                  cartClicked: () {
-                    if (productsGetController.shoppingCartItems.any((element) =>
-                        element.id == productsGetController.items[i].id)) {
-                      productsGetController.shoppingCartItems.removeWhere(
-                          (element) =>
-                              element.id == productsGetController.items[i].id);
-                    } else {
-                      productsGetController.shoppingCartItems
-                          .add(productsGetController.items[i]);
-                    }
-                  },
-                ),
+              return ProductItem(
+                product: productsGetController.showOnlyFavorites.value
+                    ? productsGetController.items
+                        .where((element) => element.isFavourite)
+                        .toList()[i]
+                    : productsGetController.items[i],
+                favoriteClicked: () {
+                  productsGetController.toggleFavorite(i);
+                },
+                cartClicked: () {
+                  if (productsGetController.shoppingCartItems.any((element) =>
+                      element.id == productsGetController.items[i].id)) {
+                    productsGetController.shoppingCartItems.removeWhere(
+                        (element) =>
+                            element.id == productsGetController.items[i].id);
+                  } else {
+                    productsGetController.shoppingCartItems
+                        .add(productsGetController.items[i]);
+                  }
+                },
               );
             });
           });

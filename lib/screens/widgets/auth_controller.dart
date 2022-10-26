@@ -12,6 +12,7 @@ class AuthScreenController extends GetxController {
       TextEditingController();
 
   final RxBool isLoading = false.obs;
+
   RxString get userId {
     return userId;
   }
@@ -100,7 +101,7 @@ class AuthScreenController extends GetxController {
         .signOut()
         .then((value) => Get.offAll(() => AuthScreen()));
   }
-  //void fetch
+//void fetch
 
 }
 
